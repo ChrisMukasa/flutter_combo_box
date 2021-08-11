@@ -2,114 +2,88 @@
 
 This package help to use custom spinner with title, title with subtitle, title with icon.
 
-## Combobox with title
-```dart
-title({String title, Color accent = Colors.blue}) => DropdownMenuItem(
-    value: title,
-    child: Container(
-      child: Row(
-        children: <Widget>[
-        Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: accent),
-          child: Center(
-            child: Text(
-              title.substring(0, 1),
-              style: GoogleFonts.quicksand(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)
-            ),
-          ),
-        ),
-        SizedBox(width: 16),
-        Text(
-          title,
-          style: GoogleFonts.quicksand(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800),
-          overflow: TextOverflow.fade,
-          softWrap: false,
-        ),
-        ],
-      ),
-    ),
-  );
+[![Build Status](https://api.cirrus-ci.com/github/flutter/plugins.svg)](https://github.com/ChrisMukasa/flutter_combo_box/blob/master)
+[![Release Status](https://github.com/flutter/plugins/actions/workflows/release.yml/badge.svg)](https://github.com/ChrisMukasa/flutter_combo_box/actions/workflows/release.yml)
+
+## Usage
+[Example link](https://github.com/ChrisMukasa/flutter_combo_box/blob/master/example/example.dart)
+
+To use this plugin, add flutter_combo_box as a [dependency in your pubspec.yaml file.](https://flutter.dev/docs/development/platform-integration/platform-channels)
+
+### Hou to use this package
+  
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_combo_box: ^0.0.2+2 # 👈🏼 add this line
 ```
-## Combobox with title and subtitle
+
+* Import the package to your main file
 ```dart
-titleSubTitle({String title, String description, Color accent = Colors.purple}) => DropdownMenuItem(
-    value: title,
-    child: Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-        Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: accent,
-          ),
-          child: Center(
-            child: Text(
-              title.substring(0, 1),
-              style: GoogleFonts.quicksand(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)
-            ),
-          ),
-        ),
-        SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.quicksand(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-              overflow: TextOverflow.fade,
-              softWrap: false,
-            ),
-            Text(
-              description,
-              style: GoogleFonts.quicksand(color: Colors.grey, fontSize: 10),
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
-          ],
-        ),
-        ],
-      ),
-    ),
-);
+import 'package:flutter_combo_box/flutter_combo_box.dart';
 ```
-## Combobox with icon and title
+## Combobox types
+* Combobox with Title
+* ComboBox with Title and subtitle
+* ComboBox with Icon and title
+### Title
 ```dart
-iconTitle({IconData icon, String title, Color background = Colors.indigo}) => DropdownMenuItem(
-    value: title,
-    child: Container(
-      child: Row(
-        children: <Widget>[
-        Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: background,
-          ),
-          child: Center(child: Icon(icon, color: Colors.white, size: 18)),
+ComboBoxTitle({String title, Color accent = Colors.blue})
+```
+### Title and subtitle
+```dart
+ComboBoxTitleSubTitle({String title, String description, Color accent = Colors.purple})
+```
+### Icon and title
+```dart
+ComboBoxIconTitle({IconData icon, String title, Color background = Colors.indigo})
+```
+## Example
+```dart
+Container(
+  child: Center(
+    child: DropdownButtonFormField<String>(
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        labelText: 'Gender',
+        hintText: 'Please select the gender here',
+        hintStyle: GoogleFonts.quicksand(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w800),
+        alignLabelWithHint: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.black26),
+          gapPadding: 16,
         ),
-        SizedBox(width: 16),
-        Text(
-          title,
-          style: GoogleFonts.quicksand(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-          overflow: TextOverflow.fade,
-          softWrap: false,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.black26),
+          gapPadding: 16,
         ),
-        ],
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.black26),
+          gapPadding: 16,
+        ),
       ),
+      items: genders.map((item) {
+        return DropdownMenuItem(
+          child: ComboBoxTitle(title: item, accent: Colors.red),
+          value: item,
+        );
+      }).toList(),
+      onChanged: (value) => setState(() => selectedGender = value),
+      value: selectedGender,
     ),
-);
+  ),
+),
 ```
 ## Screenshots
 
-![Global apearence](https://github.com/ChrisMukasa/flutter_combo_box/../../../../example/screenshots/1.png)
-![Expanded Spinner](https://github.com/ChrisMukasa/flutter_combo_box/../../../../example/screenshots/2.png)
-
+Global view 
+![alt text](https://github.com/ChrisMukasa/flutter_combo_box/blob/master/example/screenshots/1.png?raw=true)
+Expanded view
+![alt text](https://github.com/ChrisMukasa/flutter_combo_box/blob/master/example/screenshots/2.png?raw=true)
 
 For help getting started with Combobox package, view our 
 [Gith repository](https://github.com/ChrisMukasa/flutter_combo_box)
