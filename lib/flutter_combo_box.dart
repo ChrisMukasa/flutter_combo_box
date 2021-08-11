@@ -1,10 +1,29 @@
-# flutter_combo_box
+library flutter_combo_box;
 
-This package help to use custom spinner with title, title with subtitle, title with icon.
+// ABOUT THE DEVELOPER
+//
+// Contacts:
+//      - Names: Chris Simba Mukasa
+//      - Mail: mukasa.chris7@gmail.com
+//      - Phone: +243 994 802 444
+//      - Address: Av. de la mission, Himbi 2, Goma, Nord-Kivu, RDC
+//
+// Skills:
+//      - Android Native development,
+//      - Flutter developer [Android, IOS, Web and Desktop],
+//      - Database Manager,
+//      - ApiRestFull developer (With pure PHP),
+//      - Desktop Apps developer (VB.net, C#)
+//
+//  Copyright (c) Aug 2021.
+//  All rights reserved.
+//
 
-## Combobox with title
-```dart
-title({String title, Color accent = Colors.blue}) => DropdownMenuItem(
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class ComboBox {
+  static title({String title, Color accent = Colors.blue}) => DropdownMenuItem(
     value: title,
     child: Container(
       child: Row(
@@ -31,10 +50,8 @@ title({String title, Color accent = Colors.blue}) => DropdownMenuItem(
       ),
     ),
   );
-```
-## Combobox with title and subtitle
-```dart
-titleSubTitle({String title, String description, Color accent = Colors.purple}) => DropdownMenuItem(
+
+  static titleSubTitle({String title, String description, Color accent = Colors.purple}) => DropdownMenuItem(
     value: title,
     child: Container(
       child: Row(
@@ -75,11 +92,9 @@ titleSubTitle({String title, String description, Color accent = Colors.purple}) 
         ],
       ),
     ),
-);
-```
-## Combobox with icon and title
-```dart
-iconTitle({IconData icon, String title, Color background = Colors.indigo}) => DropdownMenuItem(
+  );
+
+  static iconTitle({IconData icon, String title, Color background = Colors.indigo}) => DropdownMenuItem(
     value: title,
     child: Container(
       child: Row(
@@ -103,13 +118,5 @@ iconTitle({IconData icon, String title, Color background = Colors.indigo}) => Dr
         ],
       ),
     ),
-);
-```
-## Screenshots
-
-![Global apearence](https://github.com/ChrisMukasa/flutter_combo_box/../../../../example/screenshots/1.png)
-![Expanded Spinner](https://github.com/ChrisMukasa/flutter_combo_box/../../../../example/screenshots/2.png)
-
-
-For help getting started with Combobox package, view our 
-[Gith repository](https://github.com/ChrisMukasa/flutter_combo_box)
+  );
+}
