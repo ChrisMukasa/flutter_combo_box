@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_combo_box/components/combo_box.dart';
 import 'package:flutter_combo_box/flutter_combo_box.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ExampleComboBoxPage extends StatefulWidget {
 
@@ -24,6 +24,8 @@ class _ExampleComboBoxPageState extends State<ExampleComboBoxPage> {
     Gender(title: 'Undefined', subtitle: 'The undefined gender')
   ];
 
+  late Future<List<dynamic>> datas;
+
   String selectedGender = '';
   var selectedGenderTitleSubTitle = Gender();
 
@@ -34,7 +36,17 @@ class _ExampleComboBoxPageState extends State<ExampleComboBoxPage> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              child: ComboBoxFuture(
+                label: 'Custom label', 
+                hint: 'Custom hint', 
+                datas: datas,
+                onChanged: (item){},
+              )
+            ),
+            SizedBox(height: 16),
             Container(
               child: Center(
                 child: DropdownButtonFormField<String>(
@@ -42,7 +54,7 @@ class _ExampleComboBoxPageState extends State<ExampleComboBoxPage> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                     labelText: 'Gender',
                     hintText: 'Please select the gender here',
-                    hintStyle: GoogleFonts.quicksand(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w800),
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w800),
                     alignLabelWithHint: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -62,7 +74,7 @@ class _ExampleComboBoxPageState extends State<ExampleComboBoxPage> {
                   ),
                   items: genders.map((item) {
                     return DropdownMenuItem(
-                      child: ComboBoxTitle(title: item, accent: Colors.red),
+                      child: TileTitle(title: item, accent: Colors.red),
                       value: item,
                     );
                   }).toList(),
@@ -79,7 +91,7 @@ class _ExampleComboBoxPageState extends State<ExampleComboBoxPage> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                     labelText: 'Gender with Subtitle',
                     hintText: 'Please select the gender here',
-                    hintStyle: GoogleFonts.quicksand(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w800),
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w800),
                     alignLabelWithHint: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -99,7 +111,7 @@ class _ExampleComboBoxPageState extends State<ExampleComboBoxPage> {
                   ),
                   items: genderTitleSubTitles.map((item) {
                     return DropdownMenuItem(
-                      child: ComboBoxTitleSubTitle(title: item.title, subtitle: item.subtitle, accent: Colors.red),
+                      child: TileTitleSubTitle(title: item.title, subtitle: item.subtitle, accent: Colors.red),
                       value: item,
                     );
                   }).toList(),

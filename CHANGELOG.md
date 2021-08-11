@@ -15,3 +15,11 @@
 ## 0.0.2+2
 
 * Fix somes bugs of Null Safety
+  
+## 0.0.2+3
+
+* Removing ```google_fonts``` library
+
+## 0.0.2+4
+
+* Adding a support of Future List Data

@@ -1,6 +1,6 @@
 name: flutter_combo_box
 description: This package help to use custom spinner with title, title with subtitle, title with icon.
-version: 0.0.2+2
+version: 0.0.2+4
 homepage: https://github.com/ChrisMukasa/flutter_combo_box
 
 environment:
@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -20,127 +20,62 @@ library flutter_combo_box;
 //
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class ComboBoxTitle extends StatelessWidget {
-  final String? title;
+import 'components/combo_box.dart';
+
+class ComboBoxFuture extends StatelessWidget {
+  final String label;
+  final String hint;
+  final String loadingHint;
   final Color accent;
+  final Future<List<dynamic>> datas;
+  final ValueChanged<dynamic>? onChanged;
 
-  const ComboBoxTitle({ Key? key, this.title, this.accent = Colors.blue}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => DropdownMenuItem(
-    value: title,
-    child: Container(
-      child: Row(
-        children: <Widget>[
-        Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: accent),
-          child: Center(
-            child: Text(
-              title!.substring(0, 1),
-              style: GoogleFonts.quicksand(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)
-            ),
-          ),
-        ),
-        SizedBox(width: 16),
-        Text(
-          title ?? 'N/A',
-          style: GoogleFonts.quicksand(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800),
-          overflow: TextOverflow.fade,
-          softWrap: false,
-        ),
-        ],
-      ),
-    ),
-  );
-}
-
-class ComboBoxTitleSubTitle extends StatelessWidget {
-  final String? title;
-  final String? subtitle;
-  final Color accent;
-
-  const ComboBoxTitleSubTitle({Key? key, this.title, this.subtitle, this.accent = Colors.purple}) : super(key: key);
+  const ComboBoxFuture({ Key? key, required this.label, required this.hint, this.loadingHint = '', this.accent = Colors.blue, this.onChanged, required this.datas}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => DropdownMenuItem(
-    value: title,
-    child: Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-        Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: accent,
-          ),
-          child: Center(
-            child: Text(
-              title!.substring(0, 1),
-              style: GoogleFonts.quicksand(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<dynamic>>(
+      initialData: [],
+      future: datas,
+      builder: (_, snapshot) {
+        if (!snapshot.hasData) {
+          Text(loadingHint);
+        } else {
+          return DropdownButtonFormField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              labelText: label,
+              hintText: hint,
+              hintStyle: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w800),
+              alignLabelWithHint: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.black26),
+                gapPadding: 16,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.black26),
+                gapPadding: 16,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.black26),
+                gapPadding: 16,
+              ),
             ),
-          ),
-        ),
-        SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title ?? 'N/A',
-              style: GoogleFonts.quicksand(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-              overflow: TextOverflow.fade,
-              softWrap: false,
-            ),
-            Text(
-              subtitle ?? 'N/A',
-              style: GoogleFonts.quicksand(color: Colors.grey, fontSize: 10),
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-            ),
-          ],
-        ),
-        ],
-      ),
-    ),
-  );
-}
-
-class ComboBoxIconTitle extends StatelessWidget {
-  final IconData? icon;
-  final String? title;
-  final Color? accent;
-
-  const ComboBoxIconTitle({ Key? key, this.icon, this.title, this.accent }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => DropdownMenuItem(
-    value: title,
-    child: Container(
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: accent,
-            ),
-            child: Center(child: Icon(icon, color: Colors.white, size: 18)),
-          ),
-          SizedBox(width: 16),
-          Text(
-            title  ?? 'N/A',
-            style: GoogleFonts.quicksand(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-            overflow: TextOverflow.fade,
-            softWrap: false,
-          ),
-        ],
-      ),
-    ),
-  );
+            items: snapshot.data!.map((item) {
+              return DropdownMenuItem(
+                child: TileTitle(title: item, accent: accent),
+                value: item,
+              );
+            }).toList(),
+            onChanged: (value) => onChanged!(value),
+          );
+        }
+        return Text(hint);
+      },
+    );
+  }
 }
